@@ -1,5 +1,5 @@
-# Cat Clicker Premium Vanilla
+# Cat Clicker
 
-Here's Ben's solution for Cat Clicker Premium from [Udacity's Javascript Design Patterns course](https://www.udacity.com/course/javascript-design-patterns--ud989).
+https://github.com/olgaviol4ik/catclicker
 
 Clone the repo and open up `index.html` in your browser of choice.
