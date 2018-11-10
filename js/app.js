@@ -1,46 +1,58 @@
 
-/* ======= Model ======= */
+/* Model - where all the data is stored both from the server and the user */
 
-var model = {
+let model = {   /*model is a simple object literal with Current cat set to null and with cats - vary large array of objects, each one represents a cat */
     currentCat: null,
     cats: [
         {
             clickCount : 0,
-            name : 'Tabby',
-            imgSrc : 'img/434164568_fea0ad4013_z.jpg',
-            imgAttribution : 'https://www.flickr.com/photos/bigtallguy/434164568'
+            name : 'KsushaKittenPlaysMouse',
+            imgSrc : 'img/1.jpg',
+            imgAttribution : ''
         },
         {
             clickCount : 0,
-            name : 'Tiger',
-            imgSrc : 'img/4154543904_6e2428c421_z.jpg',
-            imgAttribution : 'https://www.flickr.com/photos/xshamx/4154543904'
+            name : 'KsushaOnLaptop',
+            imgSrc : 'img/2.jpg',
+            imgAttribution : ''
         },
         {
             clickCount : 0,
-            name : 'Scaredy',
-            imgSrc : 'img/22252709_010df3379e_z.jpg',
-            imgAttribution : 'https://www.flickr.com/photos/kpjas/22252709'
+            name : 'KsushaKittenBlueEyes',
+            imgSrc : 'img/3.jpg',
+            imgAttribution : ''
         },
         {
             clickCount : 0,
-            name : 'Shadow',
-            imgSrc : 'img/1413379559_412a540d29_z.jpg',
-            imgAttribution : 'https://www.flickr.com/photos/malfet/1413379559'
+            name : 'KsushaFluffy',
+            imgSrc : 'img/4.jpg',
+            imgAttribution : ''
         },
         {
             clickCount : 0,
-            name : 'Sleepy',
-            imgSrc : 'img/9648464288_2516b35537_z.jpg',
-            imgAttribution : 'https://www.flickr.com/photos/onesharp/9648464288'
+            name : 'Grace',
+            imgSrc : 'img/5.jpg',
+            imgAttribution : ''
+        },
+        {
+            clickCount : 0,
+            name : 'GraceReturn1',
+            imgSrc : 'img/6.jpg',
+            imgAttribution : ''
+        },
+        {
+            clickCount : 0,
+            name : 'GraceReturn2',
+            imgSrc : 'img/7.jpg',
+            imgAttribution : ''
         }
     ]
 };
 
 
-/* ======= Octopus ======= */
+/* Octopus or Controller- where all functions are stored*/
 
-var octopus = {
+let controller = {
 
     init: function() {
         // set our current cat to the first one in the list
@@ -72,9 +84,9 @@ var octopus = {
 };
 
 
-/* ======= View ======= */
+/* View  - where all ui elements are rendered and stored*/
 
-var catView = {
+let catView = {
 
     init: function() {
         // store pointers to our DOM elements for easy access later
@@ -84,8 +96,8 @@ var catView = {
         this.countElem = document.getElementById('cat-count');
 
         // on click, increment the current cat's counter
-        this.catImageElem.addEventListener('click', function(){
-            octopus.incrementCounter();
+        this.catImageElem.addEventListener('click', function(e){
+            controller.incrementCounter();
         });
 
         // render this view (update the DOM elements with the right values)
@@ -94,14 +106,14 @@ var catView = {
 
     render: function() {
         // update the DOM elements with values from the current cat
-        var currentCat = octopus.getCurrentCat();
+        var currentCat = controller.getCurrentCat();
         this.countElem.textContent = currentCat.clickCount;
         this.catNameElem.textContent = currentCat.name;
         this.catImageElem.src = currentCat.imgSrc;
     }
 };
 
-var catListView = {
+let catListView = {
 
     init: function() {
         // store the DOM element for easy access later
@@ -112,28 +124,28 @@ var catListView = {
     },
 
     render: function() {
-        var cat, elem, i;
-        // get the cats we'll be rendering from the octopus
-        var cats = octopus.getCats();
+        //var cat, elem, i;
+        // get the cats we'll be rendering from the controller
+        let cats = controller.getCats();
 
         // empty the cat list
         this.catListElem.innerHTML = '';
 
         // loop over the cats
-        for (i = 0; i < cats.length; i++) {
+        for (let i = 0; i < cats.length; i++) {
             // this is the cat we're currently looping over
             cat = cats[i];
 
             // make a new cat list item and set its text
-            elem = document.createElement('li');
+            let elem = document.createElement('li');
             elem.textContent = cat.name;
 
             // on click, setCurrentCat and render the catView
             // (this uses our closure-in-a-loop trick to connect the value
             //  of the cat variable to the click event function)
-            elem.addEventListener('click', (function(catCopy) {
+            elem.addEventListener('click', (function(cat) {
                 return function() {
-                    octopus.setCurrentCat(catCopy);
+                    controller.setCurrentCat(cat);
                     catView.render();
                 };
             })(cat));
@@ -145,4 +157,4 @@ var catListView = {
 };
 
 // make it go!
-octopus.init();
+controller.init();
